@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import android.widget.TextView;
  * description：
  */
 public class TranslucentBehavior extends CoordinatorLayout.Behavior<Toolbar> {
+    private final String TAG = this.getClass().getSimpleName();
 
     /**
      * 标题栏的高度
@@ -28,21 +30,28 @@ public class TranslucentBehavior extends CoordinatorLayout.Behavior<Toolbar> {
 
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent, Toolbar child, View dependency) {
-        return dependency instanceof TextView;
+
+        return false;
     }
 
     /**
      * 必须要加上  layout_anchor，对方也要layout_collapseMode才能使用
      */
     @Override
-    public boolean onDependentViewChanged(CoordinatorLayout parent, Toolbar child, View dependency) {
-
+    public boolean onDependentViewChanged(CoordinatorLayout parent, final Toolbar child, View dependency) {
         // 初始化高度
-        if (mToolbarHeight == 0) {
+      /*  if (mToolbarHeight == 0) {
             mToolbarHeight = child.getBottom() * 2;
             //为了更慢的
-        }
-        //
+        }*/
+
+        child.post(new Runnable() {
+            @Override
+            public void run() {
+                mToolbarHeight = child.getHeight() * 2;
+            }
+        });
+
         //计算toolbar从开始移动到最后的百分比
         float percent = dependency.getY() / mToolbarHeight;
 
@@ -53,8 +62,6 @@ public class TranslucentBehavior extends CoordinatorLayout.Behavior<Toolbar> {
 
         // 计算alpha通道值
         float alpha = percent * 255;
-
-
         //设置背景颜色
         child.setBackgroundColor(Color.argb((int) alpha, 100, 174, 149));
 

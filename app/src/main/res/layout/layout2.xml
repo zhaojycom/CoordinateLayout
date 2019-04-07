@@ -2,7 +2,8 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -19,7 +20,7 @@
                 android:id="@+id/iv"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/bk"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.9" />
@@ -33,27 +34,33 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/tl"
         android:layout_width="match_parent"
-        android:layout_height="84dp"
+        android:layout_height="64dp"
         app:layout_anchor="@id/iv"
         app:layout_behavior="com.zhaojy.coordinatelayout.TranslucentBehavior"
         app:titleTextColor="#fff" />
 
-    <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="40dp"
+    <!--头像-->
+    <com.zhaojy.coordinatelayout.CircleImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/avatar"
         app:layout_anchor="@id/iv"
-        app:layout_behavior="com.zhaojy.coordinatelayout.TransferHeaderBehavior">
+        app:layout_behavior="com.zhaojy.coordinatelayout.TransferHeaderBehavior" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="64dp">
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:elevation="5dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/avatar" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:src="@mipmap/back" />
 
-    </android.support.v7.widget.CardView>
-
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
